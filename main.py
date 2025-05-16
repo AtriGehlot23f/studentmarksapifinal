@@ -9,14 +9,15 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
-# Load marks from file
+# Load the marks once when the app starts
 with open("marks.json", "r") as f:
-    student_marks = json.load(f)
+    data = json.load(f)
 
 @app.get("/api")
-async def get_marks(name: list[str] = []):
-    result = [student_marks.get(n, None) for n in name]
+def get_marks(name: list[str] = []):
+    name_to_marks = {student["name"]: student["marks"] for student in data}
+    result = [name_to_marks.get(n, None) for n in name]
     return {"marks": result}
