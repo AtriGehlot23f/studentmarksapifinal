@@ -5,7 +5,7 @@ import os
 
 app = FastAPI()
 
-# Enable CORS
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load the marks data (make sure marks.json is at root)
+
 MARKS_PATH = os.path.join(os.path.dirname(__file__), '..', 'marks.json')
 
 with open(MARKS_PATH, "r") as f:
